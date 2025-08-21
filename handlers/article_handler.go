@@ -61,6 +61,7 @@ func (h *ArticleHandler) CreateArticle(c *gin.Context) {
     result, err := h.DB.Exec(query, newArticle.Title, newArticle.Content, newArticle.Category, newArticle.Status)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"errors": []string{"Failed to create article"}})
+		log.Println("Error creating article:", err)
         return
     }
 
@@ -93,6 +94,7 @@ func (h *ArticleHandler) GetArticles(c *gin.Context) {
     rows, err := h.DB.Query(query, limit, offset)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"errors": []string{"Failed to fetch articles"}})
+		log.Println("Error fetch article:", err)
         return
     }
     defer rows.Close()
@@ -123,6 +125,7 @@ func (h *ArticleHandler) GetArticleByID(c *gin.Context) {
             return
         }
         c.JSON(http.StatusInternalServerError, gin.H{"errors": []string{"Failed to fetch article"}})
+		log.Println("Error fetch article:", err)
         return
     }
 
@@ -150,6 +153,7 @@ func (h *ArticleHandler) UpdateArticle(c *gin.Context) {
     _, err := h.DB.Exec(query, updatedArticle.Title, updatedArticle.Content, updatedArticle.Category, updatedArticle.Status, id)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"errors": []string{"Failed to update article"}})
+		log.Println("Error update article:", err)
         return
     }
 
@@ -164,6 +168,7 @@ func (h *ArticleHandler) DeleteArticle(c *gin.Context) {
     _, err := h.DB.Exec(query, id)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"errors": []string{"Failed to delete article"}})
+		log.Println("Error delete article:", err)
         return
     }
 
