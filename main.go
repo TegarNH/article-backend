@@ -15,10 +15,7 @@ func main() {
 	gin.SetMode(os.Getenv("GIN_MODE"))
 
 	// load environment
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Could not load .env file")
-	}
+	godotenv.Load()
 
     // Koneksi ke database MySQL
     dsn := os.Getenv("DB_DSN")
