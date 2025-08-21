@@ -6,6 +6,7 @@ import (
     "net/http"
     "strconv"
     "time"
+    "log"
 
     "github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
