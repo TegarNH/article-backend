@@ -5,6 +5,7 @@ import (
     "log"
 	"os"
 
+	"github.com/gin-contrib/cors"
     "github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"  
     _ "github.com/go-sql-driver/mysql"
@@ -42,6 +43,10 @@ func main() {
 
     // Inisialisasi Gin router
     router := gin.Default()
+
+	// Setup CORS
+	router.Use(cors.Default())
+
     h := handlers.NewArticleHandler(db)
 
     // Grouping route untuk /article
