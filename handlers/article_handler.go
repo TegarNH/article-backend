@@ -91,7 +91,7 @@ func (h *ArticleHandler) GetArticles(c *gin.Context) {
         return
     }
 
-    query := "SELECT id, title, content, category, created_date, updated_date, status FROM posts WHERE status != 'trash' LIMIT ? OFFSET ?"
+    query := "SELECT id, title, content, category, created_date, updated_date, status FROM posts LIMIT ? OFFSET ?"
     rows, err := h.DB.Query(query, limit, offset)
     if err != nil {
         c.JSON(http.StatusInternalServerError, gin.H{"errors": []string{"Failed to fetch articles"}})
@@ -118,7 +118,7 @@ func (h *ArticleHandler) GetArticleByID(c *gin.Context) {
     id := c.Param("id")
     var article models.Article
 
-    query := "SELECT id, title, content, category, created_date, updated_date, status FROM posts WHERE id = ? AND status != 'trash'"
+    query := "SELECT id, title, content, category, created_date, updated_date, status FROM posts WHERE id = ?"
     err := h.DB.QueryRow(query, id).Scan(&article.ID, &article.Title, &article.Content, &article.Category, &article.CreatedDate, &article.UpdatedDate, &article.Status)
     if err != nil {
         if err == sql.ErrNoRows {
